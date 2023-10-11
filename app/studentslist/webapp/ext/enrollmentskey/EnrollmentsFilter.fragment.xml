@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+        <ComboBox
+            id="EnrollmentsFilter"
+            core:require="{handler: 'studentslist/ext/enrollmentskey/enrollmentskey'}"
+            selectedKey="{path: 'filterValues>', type: 'sap.fe.macros.filter.type.Value', formatOptions: { operator: 'studentslist.ext.enrollmentskey.enrollmentskey.filterEnrollments' }}"
+        >
+            <items>
+                <!-- <core:Item key="2713c83b-f171-482a-a82c-416e83b7dfdc" text="English"/> -->
+                <core:Item key="1" text="more then 1"/>
+                <core:Item key="2" text="more then 2"/>
+                <core:Item key="3" text="more then 3"/>
+            </items>
+        </ComboBox>
+</core:FragmentDefinition>

@@ -1,0 +1,219 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "studentslist",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.10.6",
+            "toolsId": "2061f1c0-73ec-4654-a78e-f342c2f581c1"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/student-book/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.118.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {},
+                "sap.f": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "studentslist.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "StudentsList",
+                    "target": [
+                        "StudentsList"
+                    ]
+                },
+                {
+                    "pattern": "Students({key}):?query:",
+                    "name": "StudentsObjectPage",
+                    "target": [
+                        "StudentsList",
+                        "StudentsObjectPage"
+                    ]
+                },
+                {
+                    "pattern": "Students({key})/enrollments({key2}):?query:",
+                    "name": "EnrollmentObjectPage",
+                    "target": [
+                        "StudentsList",
+                        "StudentsObjectPage",
+                        "EnrollmentObjectPage"
+                    ]
+                }
+            ],
+            "targets": {
+                "StudentsList": {
+                    "type": "Component",
+                    "id": "StudentsList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Students",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "Students": {
+                                    "detail": {
+                                        "route": "StudentsObjectPage"
+                                    }
+                                }
+                            },
+                            "initialLoad": "Enabled",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                                    "filterFields": {
+                                        "enrollmentskey": {
+                                            "label": "Enrollments filter",
+                                            "property": "enrollments",
+                                            "template": "studentslist.ext.enrollmentskey.EnrollmentsFilter",
+                                            "required": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "controlAggregation": "beginColumnPages",
+                    "contextPattern": ""
+                },
+                "StudentsObjectPage": {
+                    "type": "Component",
+                    "id": "StudentsObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "Students",
+                            "navigation": {
+                                "enrollments": {
+                                    "detail": {
+                                        "route": "EnrollmentObjectPage"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "enrollments/@com.sap.vocabularies.UI.v1.LineItem#Enrollments": {
+                                    "tableSettings": {
+                                        "enableFullScreen": true,
+                                        "type": "ResponsiveTable"
+                                    },
+                                    "columns": {
+                                        "DataField::status": {
+                                            "width": "30%"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "controlAggregation": "midColumnPages",
+                    "contextPattern": "/Students({key})"
+                },
+                "EnrollmentObjectPage": {
+                    "type": "Component",
+                    "id": "EnrollmentObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "Enrollment"
+                        }
+                    },
+                    "controlAggregation": "endColumnPages",
+                    "contextPattern": "/Students({key})/enrollments({key2})"
+                }
+            },
+            "config": {
+                "flexibleColumnLayout": {
+                    "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+                    "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+                },
+                "routerClass": "sap.f.routing.Router"
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {}
+            }
+        },
+        "rootView": {
+            "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+            "type": "XML",
+            "async": true,
+            "id": "appRootView"
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

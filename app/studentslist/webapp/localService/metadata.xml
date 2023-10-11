@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="StudentBookService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Students" EntityType="StudentBookService.Students">
+                    <NavigationPropertyBinding Path="enrollments" Target="Enrollment"/>
+                </EntitySet>
+                <EntitySet Name="Classes" EntityType="StudentBookService.Classes">
+                    <NavigationPropertyBinding Path="students" Target="Enrollment"/>
+                </EntitySet>
+                <EntitySet Name="Enrollment" EntityType="StudentBookService.Enrollment">
+                    <NavigationPropertyBinding Path="student" Target="Students"/>
+                    <NavigationPropertyBinding Path="class" Target="Classes"/>
+                </EntitySet>
+                <FunctionImport Name="resetStatus" Function="StudentBookService.resetStatus" EntitySet="Enrollment"/>
+            </EntityContainer>
+            <EntityType Name="Students">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="surname" Type="Edm.String"/>
+                <NavigationProperty Name="enrollments" Type="Collection(StudentBookService.Enrollment)" Partner="student"/>
+            </EntityType>
+            <EntityType Name="Classes">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="students" Type="Collection(StudentBookService.Enrollment)" Partner="class"/>
+            </EntityType>
+            <EntityType Name="Enrollment">
+                <Key>
+                    <PropertyRef Name="student_ID"/>
+                    <PropertyRef Name="class_ID"/>
+                </Key>
+                <Property Name="status" Type="Edm.String" DefaultValue="inactive"/>
+                <NavigationProperty Name="student" Type="StudentBookService.Students" Partner="enrollments">
+                    <ReferentialConstraint Property="student_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="student_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="class" Type="StudentBookService.Classes" Partner="students">
+                    <ReferentialConstraint Property="class_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="class_ID" Type="Edm.Guid" Nullable="false"/>
+            </EntityType>
+            <Function Name="resetClassEnrollment" IsBound="true" IsComposable="false">
+                <Parameter Name="in" Type="StudentBookService.Classes"/>
+                <ReturnType Type="Collection(StudentBookService.Enrollment)" Nullable="false"/>
+            </Function>
+            <Function Name="resetStatus" IsBound="false" IsComposable="false">
+                <ReturnType Type="Collection(StudentBookService.Enrollment)" Nullable="false"/>
+            </Function>
+            <Annotations Target="StudentBookService.Students/name">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="StudentBookService.Students/surname">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="StudentBookService.Classes/name">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="StudentBookService.Enrollment/status">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="active"/>
+                            <PropertyValue Property="Value" String="active"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="inactive"/>
+                            <PropertyValue Property="Value" String="inactive"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
