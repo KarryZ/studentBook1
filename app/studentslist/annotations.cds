@@ -1,8 +1,6 @@
 using StudentBookService as service from '../../srv/cat-service';
 
 annotate service.Students with @odata.draft.enabled;
-//annotate service.Enrollment with @odata.draft.enabled;
-annotate service.Classes with @odata.draft.enabled;
 
 annotate service.Students with @(
     UI.FieldGroup #GeneratedGroup1 : {

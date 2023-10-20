@@ -20,28 +20,28 @@ class StudentBookService extends cds.ApplicationService {
       }));
       
       return dataInfo;
-    })
-
-    //Reset the status of all the enrollments to active. 
-    // GET  http://localhost:4004/odata/v4/student-book/resetStatus()
-    this.on ('resetStatus', async req => {   
-      await UPDATE (Enrollments) .with ({status:'active'});
-      let enrollments = await this.run(
-        SELECT.from(Enrollments)
-    );   
-      return  enrollments;    
-    })
+    }) 
   
 
 
   return super.init()
 }
+
+  //Reset the status of all the enrollments to active. 
+    // Post  http://localhost:4004/odata/v4/student-book/resetStatus
+    async resetStatus() {   
+      await UPDATE (Enrollments).with ({status:'active'});
+      let enrollments = await this.run(
+        SELECT.from(Enrollments)
+    );   
+      return  enrollments;    
+    }
+
   //Reset the status of the enrollments for a specific class.
-  //GET 
-  //http://localhost:4004/odata/v4/student-book/Classes/2713c83b-f171-482a-a82c-416e83b7dfdc/StudentBookService.resetClassEnrollment()
-  //http://localhost:4004/odata/v4/student-book/Classes/2713c83b-f171-482a-a82c-416e83b7dfdc/resetClassEnrollment()
-  //http://localhost:4004/odata/v4/student-book/Classes(2713c83b-f171-482a-a82c-416e83b7dfdc)/StudentBookService.resetClassEnrollment()
- async resetClassEnrollment(class_ID)  { 
+  //Post 
+  //http://localhost:5000/odata/v4/student-book/Classes(2104c617-89bc-4b65-aed4-158827f645d2)/StudentBookService.resetClassEnrollment
+
+ async resetClassEnrollment(Classes, class_ID)  { 
    
     await UPDATE (Enrollments).with ({status:'active'})
     .where({'class_ID': class_ID});
