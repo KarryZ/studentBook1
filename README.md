@@ -48,9 +48,9 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 
 PATH B: Fiori Elements UI Implementation 
 + •  Add additional UI components using custom columns
-+ •  Add additional UI components using custom section
-  •  Add additional UI components using custom pages
 + •  Implement additional custom logic inside UI5 controllers
++ •  Add additional UI components using custom section
 + •  Trigger OData actions from UI
+  •  Add additional UI components using custom pages
   •  Handle CAP DRAFT lifecycle on UI side
   •  Write unit tests for UI components
