@@ -1,0 +1,36 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        showHeader="true"
+        title="{i18n>email_details}"
+        contentWidth="20vw"
+        class="sapUiContentPadding"
+        stretch="{device>/system/phone}"
+        initialFocus="closeEmail">
+    <HBox
+        class="sapUiTinyMargin"
+        justifyContent="SpaceBetween"
+        alignItems="Center">
+            <VBox>
+                <Title
+                text="Email: {email}"
+                titleStyle="H6"
+                 class="sapUiTinyMarginBottom"
+            />
+            <Text
+                text="Preffered contact type: {preferredContactType}"
+            />
+            </VBox>
+    </HBox>
+
+        <buttons>
+            <Button
+                id="closeEmail"
+                text="{i18n>close}"
+                 core:require="{ handler: 'studentslist/ext/fragment/EmailColumn'}"
+                press="handler.onCloseDialog"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

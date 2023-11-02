@@ -150,6 +150,19 @@
                                             "required": false
                                         }
                                     }
+                                },
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                        "EmailColumn": {
+                                            "header": "Email Info",
+                                            "width": "10%",
+                                            "position": {
+                                                "anchor": "DataField::surname",
+                                                "placement": "After"
+                                            },
+                                            "template": "studentslist.ext.fragment.EmailColumn"
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -1,4 +1,4 @@
-ID;name;surname;
-2509c617-89bc-4b65-aed4-158827f645d2;Antony;Stievenson;
-2104c617-89bc-4b65-aed4-158827f645d2;Nick;Ostin;
-c6c4b008-3dc7-4444-9431-e4b09e22ae11;Mike;Roberts;
+ID;name;surname;preferredContactType;email;
+2509c617-89bc-4b65-aed4-158827f645d2;Antony;Stievenson;Mail;a_s@gmail.com;
+2104c617-89bc-4b65-aed4-158827f645d2;Nick;Ostin;Email;n_o@gmail.com;
+c6c4b008-3dc7-4444-9431-e4b09e22ae11;Mike;Roberts;Email;m_r@gmail.com;

@@ -1,9 +1,16 @@
 using { Currency, managed, sap, cuid , sap.common.CodeList} from '@sap/cds/common';
 namespace sap.capire.studentbook;
 
+
+type preferredContactType: String enum { 
+        Mail; Email
+    }
+    
 entity Students: cuid {
     @mandatory name  : String;
     @mandatory surname: String;
+    email: String;
+    preferredContactType: preferredContactType @mandatory ;
     enrollments: Association to many Enrollments  on enrollments.student = $self;
 }
 
