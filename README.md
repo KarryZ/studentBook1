@@ -44,3 +44,13 @@ Show the successful run of the local app.
 ## Learn More
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
+
+
+PATH B: Fiori Elements UI Implementation 
++ •  Add additional UI components using custom columns
++ •  Add additional UI components using custom section
+  •  Add additional UI components using custom pages
++ •  Implement additional custom logic inside UI5 controllers
++ •  Trigger OData actions from UI
+  •  Handle CAP DRAFT lifecycle on UI side
+  •  Write unit tests for UI components

@@ -197,6 +197,21 @@
                                         }
                                     }
                                 }
+                            },
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "ContactInfo": {
+                                            "template": "studentslist.ext.fragment.ContactInfo",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "GeneratedFacet1"
+                                            },
+                                            "title": "Contact Info",
+                                            "type": "XMLFragment"
+                                        }
+                                    }
+                                }
                             }
                         }
                     },

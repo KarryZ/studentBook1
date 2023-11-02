@@ -49,6 +49,11 @@ annotate service.Students with @(
             $Type : 'UI.DataField',
             Label : 'enrollments',           
             Value : enrollments.class.name,
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'StudentBookService.EntityContainer/resetStatus',
+            Label : '{i18n>resetStatus}',
         }       
        
     ]
@@ -71,7 +76,8 @@ annotate service.Enrollment with @(
             $Type : 'UI.DataField',
             Value : class.description,
             Label : 'description',
-        },
+        }
+        
         ]
 );
 

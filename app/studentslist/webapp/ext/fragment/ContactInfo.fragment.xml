@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:macros="sap.fe.macros">
+	<VBox>
+		<HBox
+        class="sapUiTinyMargin"
+        justifyContent="SpaceBetween"
+        alignItems="Center">
+            <VBox>
+                <Title
+                text="Email: {email}"
+                titleStyle="H6"
+                 class="sapUiTinyMarginBottom"
+            />
+            <Text
+                text="Preffered contact type: {preferredContactType}"
+            />
+            </VBox>
+    </HBox>
+	</VBox>
+</core:FragmentDefinition>
