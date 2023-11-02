@@ -42,8 +42,9 @@ class StudentBookService extends cds.ApplicationService {
   //http://localhost:5000/odata/v4/student-book/Classes(2104c617-89bc-4b65-aed4-158827f645d2)/StudentBookService.resetClassEnrollment
 
  async resetClassEnrollment(Classes, class_ID)  { 
-   
-    await UPDATE (Enrollments).with ({status:'active'})
+  const status = Math.floor(Math.random() * 2) == 1 ? 'active' : 'inactive';
+  
+    await UPDATE (Enrollments).with ({status: status})
     .where({'class_ID': class_ID});
     
     let enrollments = await this.run(
